@@ -17,15 +17,15 @@ jobs:
       - run: docker run -e CI=true actualeyes/react-test npm test
 
       - name: Build Client Image
-      - run: docker build -t actualeyes/multi-client ./client
+        run: docker build -t actualeyes/multi-client ./client
       - name: Build Nginx Image
-      - run: docker build -t actualeyes/multi-nginx ./nginx
+        run: docker build -t actualeyes/multi-nginx ./nginx
       - name: Build Server Image
-      - run: docker build -t actualeyes/multi-server ./server
+        run: docker build -t actualeyes/multi-server ./server
       - name: Build Worker Image
-      - run: docker build -t actualeyes/multi-worker ./worker
+        run: docker build -t actualeyes/multi-worker ./worker
       - name: List Images
-      - run: docker images
+        run: docker images
       - run: docker push actualeyes/multi-client
       - run: docker push actualeyes/multi-nginx
       - run: docker push actualeyes/multi-server
