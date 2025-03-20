@@ -26,6 +26,8 @@ jobs:
         run: docker build -t actualeyes/multi-worker ./worker
       - name: List Images
         run: docker images
+      - name: Login To Docker Again
+        run: docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD" docker.io
       - run: docker push actualeyes/multi-client
       - run: docker push actualeyes/multi-nginx
       - run: docker push actualeyes/multi-server
