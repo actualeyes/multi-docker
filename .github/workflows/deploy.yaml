@@ -25,7 +25,7 @@ jobs:
       - name: Build Worker Image
       - run: docker build -t actualeyes/multi-worker ./worker
       - name: List Images
-        - run: docker images
+      - run: docker images
       - run: docker push actualeyes/multi-client
       - run: docker push actualeyes/multi-nginx
       - run: docker push actualeyes/multi-server
