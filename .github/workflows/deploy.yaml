@@ -28,7 +28,7 @@ jobs:
         run: docker images
       - name: Login To Docker Again
         run: docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
-      - run: docker push actualeyes/multi-client:latest
+      - run: docker push actualeyes/multi-client:v1
       - run: docker push actualeyes/multi-nginx:latest
       - run: docker push actualeyes/multi-server:latest
       - run: docker push actualeyes/multi-worker:latest
