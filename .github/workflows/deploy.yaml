@@ -12,22 +12,22 @@ jobs:
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-      - run: docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD" docker.io
+      - run: docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
       - run: docker build -t actualeyes/react-test -f ./client/Dockerfile.dev ./client
       - run: docker run -e CI=true actualeyes/react-test npm test
 
       - name: Build Client Image
-        run: docker build -t actualeyes/multi-client ./client
+        run: docker build -t actualeyes/multi-client:latest ./client
       - name: Build Nginx Image
-        run: docker build -t actualeyes/multi-nginx ./nginx
+        run: docker build -t actualeyes/multi-nginx:latest ./nginx
       - name: Build Server Image
-        run: docker build -t actualeyes/multi-server ./server
+        run: docker build -t actualeyes/multi-server:latest ./server
       - name: Build Worker Image
-        run: docker build -t actualeyes/multi-worker ./worker
+        run: docker build -t actualeyes/multi-worker:latest ./worker
       - name: List Images
         run: docker images
       - name: Login To Docker Again
-        run: docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD" docker.io
+        run: docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
       - run: docker push actualeyes/multi-client:latest
       - run: docker push actualeyes/multi-nginx:latest
       - run: docker push actualeyes/multi-server:latest
