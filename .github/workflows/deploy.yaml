@@ -17,7 +17,7 @@ jobs:
       - run: docker run -e CI=true actualeyes/react-test npm test
 
       - name: Build Client Image
-        run: docker build -t actualeyes/multi-client:latest ./client
+        run: docker build -t actualeyes/multi-client:v1 ./client
       - name: Build Nginx Image
         run: docker build -t actualeyes/multi-nginx:latest ./nginx
       - name: Build Server Image
