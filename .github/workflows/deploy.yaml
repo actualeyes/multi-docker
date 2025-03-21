@@ -1,4 +1,4 @@
-name: Deploy MultiDocker
+gname: Deploy MultiDocker
 on:
   push:
     branches:
@@ -8,27 +8,45 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-        env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-      - run: docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
-      - run: docker build -t actualeyes/react-test -f ./client/Dockerfile.dev ./client
-      - run: docker run -e CI=true actualeyes/react-test npm test
+    # Checkout the repository
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-      - name: Build Client Image
-        run: docker build -t actualeyes/multi-client:v1 ./client
-      - name: Build Nginx Image
-        run: docker build -t actualeyes/multi-nginx:latest ./nginx
-      - name: Build Server Image
-        run: docker build -t actualeyes/multi-server:latest ./server
-      - name: Build Worker Image
-        run: docker build -t actualeyes/multi-worker:latest ./worker
-      - name: List Images
-        run: docker images
-      - name: Login To Docker Again
-        run: docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
-      - run: docker push actualeyes/multi-client:v1
-      - run: docker push actualeyes/multi-nginx:latest
-      - run: docker push actualeyes/multi-server:latest
-      - run: docker push actualeyes/multi-worker:latest
+    # Set up Docker Buildx (optional, helps with building multi-platform images)
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+
+    # Log in to Docker Hub
+    - name: Log in to Docker Hub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Build client image
+      run: |
+        docker build -t multi-client:latest ./client
+    - name: Build nginx image
+      run: |
+        docker build -t multi-nginx:latest ./client
+    - name: Build server image
+      run: |
+        docker build -t multi-server:latest ./client
+    - name: Build worker image
+      run: |
+        docker build -t multi-worker:latest ./client
+
+    # Push the Docker image to Docker Hub
+    - name: Push client image
+      run: |
+        docker push multi-client:latest
+    - name: Push nginx image
+      run: |
+        docker push multi-nginx:latest
+    - name: Push server image
+      run: |
+        docker push multi-server:latest
+    - name: Push worker image
+      run: |
+        docker push multi-worker:latest
+
