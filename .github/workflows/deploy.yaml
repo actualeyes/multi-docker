@@ -42,11 +42,11 @@ jobs:
         docker push multi-client:latest
     - name: Push nginx image
       run: |
-        docker push multi-nginx:latest
+        docker push actualeyes/multi-nginx:latest
     - name: Push server image
       run: |
-        docker push multi-server:latest
+        docker push actualeyes/multi-server:latest
     - name: Push worker image
       run: |
-        docker push multi-worker:latest
+        docker push actualeyes/multi-worker:latest
 
