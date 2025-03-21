@@ -25,16 +25,16 @@ jobs:
 
     - name: Build client image
       run: |
-        docker build -t multi-client:latest ./client
+        docker build -t actualeyes/multi-client:latest ./client
     - name: Build nginx image
       run: |
-        docker build -t multi-nginx:latest ./client
+        docker build -t actualeyes/multi-nginx:latest ./client
     - name: Build server image
       run: |
-        docker build -t multi-server:latest ./client
+        docker build -t actualeyes/multi-server:latest ./client
     - name: Build worker image
       run: |
-        docker build -t multi-worker:latest ./client
+        docker build -t actualeyes/multi-worker:latest ./client
     - name: List images
       run: |
         docker image ls
